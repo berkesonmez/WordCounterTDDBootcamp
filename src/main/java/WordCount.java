@@ -1,20 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import exception.MissingCheckerException;
+import exception.MissingSentenceException;
+
+import java.util.*;
 
 public class WordCount {
     private HashSet<String> occurrenceWords = new HashSet<String>();
+    private HashSet<String> checker;
 
     public HashSet<String> getChecker() {
         return checker;
     }
 
     public void setChecker(String[] array) {
+        if (array == null) {
+            throw new MissingCheckerException("Checker is null");
+        }
+        if (array.length == 0) {
+            throw new MissingCheckerException("Checker is empty");
+        }
         this.checker = new HashSet<String>(Arrays.asList(array));
     }
 
-    private HashSet<String> checker;
 
     public void resetCountAndOccurrenceWords() {
         this.occurrenceWords.clear();
@@ -22,6 +28,14 @@ public class WordCount {
 
 
     public int countWords(String s) {
+
+        if(s == null) {
+            throw new MissingSentenceException("Sentence is null");
+        }
+        if(s.length() == 0) {
+            throw new MissingSentenceException("Sentence is empty");
+        }
+
         String word = "";
 
         for(int i = 0; i < s.length(); i++) {
@@ -36,15 +50,6 @@ public class WordCount {
                 word += checkChar;
             }
 
-
-//            if(!(Character.isWhitespace(checkChar) || checkChar == '.' || checkChar == ',' || checkChar == '\'' || checkChar == '\n' || checkChar == '\t')) {
-//                word += checkChar;
-//            } else {
-//                if(!WordCount.this.occurrenceWords.contains(word) && !word.equals("")) {
-//                    WordCount.this.occurrenceWords.add(word);
-//                }
-//                word = "";
-//            }
         }
         System.out.println(occurrenceWords);
         return this.occurrenceWords.size();

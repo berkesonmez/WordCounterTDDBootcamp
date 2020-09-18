@@ -1,3 +1,5 @@
+import exception.MissingCheckerException;
+import exception.MissingSentenceException;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -18,6 +20,35 @@ class WordCountTest {
     @AfterEach
     void reset() {
         sut.resetCountAndOccurrenceWords();
+    }
+
+    @Test
+    void getOutput_WhenInputIsNull_ShouldThrowMissingSentenceException() {
+        Exception exception = assertThrows(MissingSentenceException.class, () -> {
+            sut.countWords(null);
+        });
+        assertEquals("Sentence is null", exception.getMessage());
+    }
+    @Test
+    void getOutput_WhenInputIsEmpty_ShouldThrowMissingSentenceException() {
+        Exception exception = assertThrows(MissingSentenceException.class, () -> {
+            sut.countWords("");
+        });
+        assertEquals("Sentence is empty", exception.getMessage());
+    }
+    @Test
+    void getOutput_WhenCheckerIsEmpty_ShouldThrowMissingSentenceException() {
+        Exception exception = assertThrows(MissingCheckerException.class, () -> {
+            sut.setChecker(new String[]{});
+        });
+        assertEquals("Checker is empty", exception.getMessage());
+    }
+    @Test
+    void getOutput_WhenCheckerIsNull_ShouldThrowMissingSentenceException() {
+        Exception exception = assertThrows(MissingCheckerException.class, () -> {
+            sut.setChecker(null);
+        });
+        assertEquals("Checker is null", exception.getMessage());
     }
     @Test
     void getOutput_WhenInputHasDot_ShouldReturn4() {
