@@ -24,30 +24,22 @@ class WordCountTest {
 
     @Test
     void getOutput_WhenInputIsNull_ShouldThrowMissingSentenceException() {
-        Exception exception = assertThrows(MissingSentenceException.class, () -> {
-            sut.countWords(null);
-        });
+        Exception exception = assertThrows(MissingSentenceException.class, () -> sut.countWords(null));
         assertEquals("Sentence is null", exception.getMessage());
     }
     @Test
     void getOutput_WhenInputIsEmpty_ShouldThrowMissingSentenceException() {
-        Exception exception = assertThrows(MissingSentenceException.class, () -> {
-            sut.countWords("");
-        });
+        Exception exception = assertThrows(MissingSentenceException.class, () -> sut.countWords(""));
         assertEquals("Sentence is empty", exception.getMessage());
     }
     @Test
     void getOutput_WhenCheckerIsEmpty_ShouldThrowMissingSentenceException() {
-        Exception exception = assertThrows(MissingCheckerException.class, () -> {
-            sut.setChecker(new String[]{});
-        });
+        Exception exception = assertThrows(MissingCheckerException.class, () -> sut.setChecker(new String[]{}));
         assertEquals("Checker is empty", exception.getMessage());
     }
     @Test
     void getOutput_WhenCheckerIsNull_ShouldThrowMissingSentenceException() {
-        Exception exception = assertThrows(MissingCheckerException.class, () -> {
-            sut.setChecker(null);
-        });
+        Exception exception = assertThrows(MissingCheckerException.class, () -> sut.setChecker(null));
         assertEquals("Checker is null", exception.getMessage());
     }
     @Test
@@ -61,43 +53,43 @@ class WordCountTest {
         assertEquals(4, result);
     }
     @Test
-    void getOutput_WhenInputHasNonUniqueWords_ShouldReturnSix() {
+    void getOutput_WhenInputHasNonUniqueWords_ShouldReturn6() {
         int result = sut.countWords("This is a test and a good test.");
         assertEquals(6, result);
     }
     @Test
-    void getOutput_WhenInputHasNonUniqueAndUppercaseWords_ShouldReturnSix() {
+    void getOutput_WhenInputHasNonUniqueAndUppercaseWords_ShouldReturn6() {
         int result = sut.countWords("This is a test and a good Test.");
         assertEquals(6, result);
     }
 
     @Test
-    void getOutput_WhenInputHasApostrophes_ShouldReturnFour() {
+    void getOutput_WhenInputHasApostrophes_ShouldReturn4() {
         int result = sut.countWords("I'll be fine.");
         assertEquals(4, result);
     }
 
     @Test
-    void getOutput_WhenInputHasMoreThanOneLinesAndUniqueWords_ShouldReturnFourteen() {
+    void getOutput_WhenInputHasMoreThanOneLinesAndUniqueWords_ShouldReturn14() {
         int result = sut.countWords("This is a test and a good test.\nI'll be fine.\nMy name is Bond, James Bond.");
         assertEquals(14, result);
     }
 
     @Test
-    void getOutput_WhenInputHasMoreThanOneLinesAndTabAndUniqueWords_ShouldReturnFourteen() {
+    void getOutput_WhenInputHasMoreThanOneLinesAndTabAndUniqueWords_ShouldReturn14() {
         int result = sut.countWords("This is a test and a good test.\tI'll be fine.\nMy name is Bond, James Bond.");
         assertEquals(14, result);
     }
 
     @Test
-    void getOutput_WhenInputHasMoreThanOneLinesAndNonUniqueWords_ShouldReturnTen() {
+    void getOutput_WhenInputHasMoreThanOneLinesAndNonUniqueWords_ShouldReturn10() {
         int result = sut.countWords("This is a test and a good test.\nI'll be fine.\nI'll be fine.");
         assertEquals(10, result);
     }
 
     @RepeatedTest(10)
-    void getOutput_WhenInputIsList_ShoudlReturn10() {
-        List<String> sentences = new ArrayList<String>();
+    void getOutput_WhenInputIsList_ShouldReturn19() {
+        List<String> sentences = new ArrayList<>();
         sentences.add("She was too short to see over the fence.\n");
         sentences.add("The white water rafting trip was suddenly halted by the unexpected brick wall.\n");
         int result = sut.countWordsFromList(sentences);
